@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="es" data-lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0a0f1a">
+<title>Guía del panel · Panel guide — Jesús P. Zárate</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<script>
+(function(){
+  var l = null;
+  try { l = localStorage.getItem("zarate_manual_lang"); } catch(e){}
+  if (l !== "es" && l !== "en") l = /^es/i.test(navigator.language || "") ? "es" : "en";
+  document.documentElement.setAttribute("data-lang", l);
+  document.documentElement.setAttribute("lang", l);
+})();
+</script>
+<style>
+:root {
+  --bg:#0a0f1a; --surface:#111827; --surface2:#1a2336;
+  --gold:#c9993a; --gold2:#e8c97a; --gold-glow:rgba(201,153,58,0.15);
+  --cream:#f0ead8; --muted:rgba(240,234,216,0.72); --faint:rgba(240,234,216,0.14);
+  --r:6px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+body{font-family:"DM Sans",system-ui,sans-serif;background:var(--bg);color:var(--cream);line-height:1.65;font-size:16px;}
+html[data-lang="es"] [data-l="en"], html[data-lang="en"] [data-l="es"] { display:none !important; }
+
+.bar{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 20px;padding-top:calc(12px + env(safe-area-inset-top));background:rgba(10,15,26,0.9);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid var(--faint);}
+.bar-name{font-family:"Playfair Display",serif;font-size:16px;color:var(--gold2);letter-spacing:0.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.lang{display:flex;border:1px solid rgba(201,153,58,0.4);border-radius:20px;overflow:hidden;flex-shrink:0;}
+.lang button{background:transparent;border:none;color:var(--muted);font:500 12px "DM Sans",sans-serif;letter-spacing:1px;padding:8px 14px;cursor:pointer;min-height:36px;}
+html[data-lang="es"] .lang button[data-set="es"], html[data-lang="en"] .lang button[data-set="en"]{background:var(--gold);color:var(--bg);}
+.lang button:focus-visible, a:focus-visible{outline:2px solid var(--gold2);outline-offset:2px;}
+
+main{max-width:760px;margin:0 auto;padding:36px 20px 80px;}
+.kicker{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--gold);margin-bottom:12px;}
+h1{font-family:"Playfair Display",serif;font-size:clamp(32px,7vw,48px);line-height:1.1;font-weight:700;margin-bottom:14px;}
+h1 em{font-style:italic;color:var(--gold);}
+.lead{color:var(--muted);font-size:17px;max-width:56ch;margin-bottom:26px;}
+.rule{background:var(--gold-glow);border:1px solid rgba(201,153,58,0.45);border-radius:10px;padding:18px 20px;margin:0 0 30px;}
+.rule strong{color:var(--gold2);}
+.rule-t{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--gold2);margin-bottom:6px;}
+.toc{display:grid;grid-template-columns:1fr 1fr;gap:6px 18px;margin:0 0 34px;padding:0;list-style:none;}
+.toc a{color:var(--cream);text-decoration:none;font-size:14px;display:flex;gap:10px;padding:7px 0;border-bottom:1px solid var(--faint);}
+.toc a span{color:var(--gold);font-family:"Playfair Display",serif;min-width:20px;}
+.toc a:hover{color:var(--gold2);}
+
+section{padding:26px 0 8px;border-top:1px solid var(--faint);scroll-margin-top:70px;}
+.num{font-family:"Playfair Display",serif;font-size:15px;color:var(--gold);letter-spacing:2px;}
+h2{font-family:"Playfair Display",serif;font-size:25px;line-height:1.2;margin:2px 0 12px;}
+p{margin-bottom:12px;color:var(--muted);}
+ol.steps{list-style:none;counter-reset:s;margin:6px 0 16px;}
+ol.steps li{counter-increment:s;position:relative;padding:0 0 12px 44px;color:var(--cream);}
+ol.steps li::before{content:counter(s);position:absolute;left:0;top:0;width:30px;height:30px;border-radius:50%;border:1px solid rgba(201,153,58,0.5);color:var(--gold2);font:500 13px/30px "DM Sans",sans-serif;text-align:center;}
+ul.plain{margin:4px 0 14px 20px;color:var(--muted);}
+ul.plain li{margin-bottom:6px;}
+.b{display:inline;background:var(--surface2);border:1px solid rgba(201,153,58,0.45);color:var(--gold2);border-radius:5px;padding:2px 8px;font-size:14px;font-weight:500;line-height:1.95;-webkit-box-decoration-break:clone;box-decoration-break:clone;overflow-wrap:anywhere;}
+.b.gold{background:var(--gold);color:var(--bg);border-color:var(--gold);}
+.t{color:var(--muted);font-size:14px;}
+.tip{background:var(--surface);border-left:2px solid var(--gold);border-radius:0 var(--r) var(--r) 0;padding:12px 16px;margin:4px 0 16px;color:var(--muted);font-size:15px;}
+.tip strong{color:var(--cream);}
+table{width:100%;border-collapse:collapse;margin:6px 0 16px;font-size:15px;}
+th{text-align:left;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gold);font-weight:500;padding:8px 10px 8px 0;border-bottom:1px solid rgba(201,153,58,0.35);}
+td{padding:9px 10px 9px 0;border-bottom:1px solid var(--faint);vertical-align:top;color:var(--muted);}
+td:first-child{color:var(--cream);white-space:nowrap;}
+.tw{overflow-x:auto;}
+dl.faq dt{color:var(--cream);font-weight:500;margin-top:14px;}
+dl.faq dd{color:var(--muted);margin:4px 0 0;}
+footer{max-width:760px;margin:0 auto;padding:22px 20px 50px;border-top:1px solid var(--faint);font-size:12px;letter-spacing:1px;color:rgba(240,234,216,0.45);display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;}
+footer a{color:var(--gold2);}
+@media(max-width:560px){ .toc{grid-template-columns:1fr;} td:first-child{white-space:normal;} main{padding-top:26px;} }
+@media print{
+  :root{--bg:#fff;--surface:#f6f2e8;--surface2:#f6f2e8;--cream:#111;--muted:#333;--faint:#ddd;--gold:#8a6417;--gold2:#6b4d10;--gold-glow:#fbf5e3;}
+  .bar{display:none;} body{font-size:12pt;} main{padding:0;max-width:none;} section{break-inside:avoid;} .b.gold{color:#fff;}
+}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="bar-name">Jesús P. Zárate</div>
+  <div class="lang" role="group" aria-label="Idioma / Language">
+    <button type="button" data-set="es">Español</button>
+    <button type="button" data-set="en">English</button>
+  </div>
+</div>
+
+<!-- ═══════════════ ESPAÑOL ═══════════════ -->
+<main data-l="es" lang="es">
+  <div class="kicker">Guía rápida</div>
+  <h1>Cómo usar <em>tu panel</em></h1>
+  <p class="lead">Tu página tiene un panel escondido donde tú mismo cambias textos, foto, empleos y certificados, y donde haces tu volante para enviar. Los botones del panel están en inglés; aquí te digo qué significa cada uno.</p>
+
+  <div class="rule">
+    <div class="rule-t">La regla más importante</div>
+    Nada cambia en tu página hasta que tocas <span class="b gold">Save &amp; Publish</span> <span class="t">(guardar y publicar)</span>. Si cierras el panel sin tocarlo, <strong>los cambios se pierden</strong>.
+  </div>
+
+  <ul class="toc">
+    <li><a href="#es-1"><span>1</span> Abrir el panel</a></li>
+    <li><a href="#es-2"><span>2</span> Entrar (primera vez y siguientes)</a></li>
+    <li><a href="#es-3"><span>3</span> Cambiar algo y publicarlo</a></li>
+    <li><a href="#es-4"><span>4</span> Cambiar la fotografía</a></li>
+    <li><a href="#es-5"><span>5</span> Agregar empleo, certificado o curso</a></li>
+    <li><a href="#es-6"><span>6</span> Hacer tu volante (flyer)</a></li>
+    <li><a href="#es-7"><span>7</span> Compartir una publicación</a></li>
+    <li><a href="#es-8"><span>8</span> Descargar tu CV en PDF</a></li>
+    <li><a href="#es-9"><span>9</span> Todas las secciones</a></li>
+    <li><a href="#es-10"><span>10</span> Si algo no sale</a></li>
+  </ul>
+
+  <section id="es-1">
+    <div class="num">01</div><h2>Abrir el panel</h2>
+    <ol class="steps">
+      <li>Abre tu página.</li>
+      <li>Baja hasta el final, donde está tu nombre en letras pequeñas.</li>
+      <li>Toca tu nombre <strong>5 veces seguidas</strong>, rápido.</li>
+      <li>Se abre la pantalla <span class="b">Sign in</span> <span class="t">(iniciar sesión)</span>.</li>
+    </ol>
+    <div class="tip"><strong>Atajo:</strong> escribe <strong>#admin</strong> al final de la dirección de tu página y se abre el panel directamente. Puedes guardar esa dirección en tus favoritos.</div>
+  </section>
+
+  <section id="es-2">
+    <div class="num">02</div><h2>Entrar</h2>
+    <p><strong style="color:var(--cream)">La primera vez</strong> (o si olvidaste tu contraseña):</p>
+    <ol class="steps">
+      <li>Toca el texto subrayado <span class="b">First time here, or forgot your password? Use an activation code</span> <span class="t">(¿primera vez, o olvidaste tu contraseña? usa un código de activación)</span>.</li>
+      <li>En <span class="b">Email</span> escribe tu correo registrado.</li>
+      <li>En <span class="b">Activation code</span> <span class="t">(código de activación)</span> escribe el código que te dio Datable. Cada código sirve una sola vez.</li>
+      <li>En <span class="b">New password</span> <span class="t">(contraseña nueva)</span> inventa tu contraseña, de 8 caracteres o más, y repítela en <span class="b">Repeat new password</span>.</li>
+      <li>Toca <span class="b gold">Create password &amp; sign in</span> <span class="t">(crear contraseña y entrar)</span>.</li>
+    </ol>
+    <p><strong style="color:var(--cream)">Las siguientes veces:</strong> escribe tu correo y tu contraseña y toca <span class="b gold">Sign in</span>. En tu mismo teléfono normalmente ya entra solo.</p>
+    <div class="tip">Si olvidas tu contraseña, pide a Datable un código de activación nuevo.</div>
+  </section>
+
+  <section id="es-3">
+    <div class="num">03</div><h2>Cambiar algo y publicarlo</h2>
+    <ol class="steps">
+      <li>Toca la sección que quieres cambiar, por ejemplo <span class="b">Header &amp; Contact</span> <span class="t">(encabezado y contacto)</span>. Se abre.</li>
+      <li>Escribe encima del texto que quieres cambiar.</li>
+      <li>Si quieres ver cómo va quedando, toca <span class="b">👁 Preview</span> <span class="t">(vista previa)</span>. Para regresar, toca <span class="b">Back to editing</span> <span class="t">(volver a editar)</span>.</li>
+      <li>Toca <span class="b gold">Save &amp; Publish</span>.</li>
+      <li>Espera el aviso verde <span class="b">Published ✓</span> <span class="t">(publicado)</span>. Listo: ya lo ve todo el mundo.</li>
+    </ol>
+    <div class="tip">Mientras haya cambios sin publicar, arriba dice <strong>● Unpublished changes</strong> (cambios sin publicar). Cuando todo está publicado dice <strong>✓ Everything is published</strong>.</div>
+  </section>
+
+  <section id="es-4">
+    <div class="num">04</div><h2>Cambiar la fotografía</h2>
+    <ol class="steps">
+      <li>Abre la sección <span class="b">📷 Photo</span> <span class="t">(foto)</span>.</li>
+      <li>Toca <span class="b gold">Choose a new photo</span> <span class="t">(elegir una foto nueva)</span> y escoge la foto en tu teléfono.</li>
+      <li>Espera a que diga <span class="b">New photo ready</span> <span class="t">(foto nueva lista)</span>.</li>
+      <li>Toca <span class="b gold">Save &amp; Publish</span>. <strong>Sin este paso la foto no se publica.</strong></li>
+    </ol>
+    <p>Usa una foto vertical. En la página, la foto se ve en computadora y pantallas grandes; en teléfono la página muestra solo el texto. La foto también sale en tu volante.</p>
+  </section>
+
+  <section id="es-5">
+    <div class="num">05</div><h2>Agregar empleo, certificado o curso</h2>
+    <ol class="steps">
+      <li>Para un empleo abre <span class="b">💼 Career</span> <span class="t">(trayectoria)</span> y toca <span class="b">＋ Add position</span> <span class="t">(agregar puesto)</span>.</li>
+      <li>Para un certificado o curso abre <span class="b">🏅 Certificates &amp; Courses</span> y toca <span class="b">＋ Add certificate or course</span>.</li>
+      <li>Llena los campos: empresa o nombre, puesto, año y descripción.</li>
+      <li>Toca <span class="b gold">Save &amp; Publish</span>.</li>
+    </ol>
+    <p>En cada renglón hay tres botones: <span class="b">↑</span> y <span class="b">↓</span> cambian el orden, y <span class="b">✕</span> lo borra (te pide confirmar).</p>
+  </section>
+
+  <section id="es-6">
+    <div class="num">06</div><h2>Hacer tu volante (flyer)</h2>
+    <p>El panel arma solo una imagen de una hoja con tu foto, nombre, puesto, cifras, contacto y un código QR que abre tu página. No tienes que escribir nada de nuevo ni tomar capturas de pantalla.</p>
+    <ol class="steps">
+      <li>Abre la sección <span class="b">🖼 Flyer</span> <span class="t">(volante)</span>.</li>
+      <li>En <span class="b">Size</span> <span class="t">(tamaño)</span> elige: <strong>Story</strong> para estados de WhatsApp e historias de Instagram, <strong>Post</strong> para una publicación cuadrada, o <strong>Print</strong> para imprimir en hoja carta.</li>
+      <li>En <span class="b">Language of the flyer</span> <span class="t">(idioma del volante)</span> elige <strong>English</strong> o <strong>Español</strong>.</li>
+      <li>En <span class="b">What to show</span> <span class="t">(qué mostrar)</span> marca o desmarca lo que quieras que salga.</li>
+      <li>Si la cara sale cortada, mueve la barra <span class="b">Photo framing</span> <span class="t">(encuadre de la foto)</span>.</li>
+      <li>Toca <span class="b gold">⬇ Download image</span> <span class="t">(descargar imagen)</span> para guardarla en tu teléfono, o <span class="b">📤 Share…</span> <span class="t">(compartir)</span> para mandarla directo por WhatsApp, Facebook o Instagram.</li>
+    </ol>
+    <div class="tip">En <strong>Texts on the flyer</strong> (textos del volante) puedes acortar los textos o escribirlos en español solo para ese volante. Tu página no cambia, y aquí no hace falta tocar Save &amp; Publish.</div>
+  </section>
+
+  <section id="es-7">
+    <div class="num">07</div><h2>Compartir una publicación</h2>
+    <ol class="steps">
+      <li>Abre <span class="b">📤 Share a Post</span> <span class="t">(compartir una publicación)</span>.</li>
+      <li>Toca <span class="b">Choose a photo</span> <span class="t">(elegir una foto)</span>.</li>
+      <li>Escribe el texto de tu publicación.</li>
+      <li>Toca <span class="b gold">Share…</span> y elige Facebook, Instagram o WhatsApp en el menú de tu teléfono.</li>
+    </ol>
+    <p>El texto se copia solo. Si la aplicación no lo muestra, mantén presionado y elige "pegar".</p>
+  </section>
+
+  <section id="es-8">
+    <div class="num">08</div><h2>Descargar tu CV en PDF</h2>
+    <ol class="steps">
+      <li>Abre <span class="b">📄 Formal CV</span> <span class="t">(CV formal)</span> y baja hasta el final de la sección.</li>
+      <li>Toca <span class="b">⬇ Download CV as PDF</span> <span class="t">(descargar CV en PDF)</span>.</li>
+      <li>En la ventana de impresión elige "Guardar como PDF".</li>
+    </ol>
+    <p>Cualquier visitante también puede descargarlo desde tu página con el botón <span class="b">Download PDF</span>.</p>
+  </section>
+
+  <section id="es-9">
+    <div class="num">09</div><h2>Todas las secciones</h2>
+    <div class="tw"><table>
+      <thead><tr><th>En el panel dice</th><th>Sirve para</th></tr></thead>
+      <tbody>
+        <tr><td>📷 Photo</td><td>Cambiar tu fotografía</td></tr>
+        <tr><td>🪪 Header &amp; Contact</td><td>Nombre, puesto, presentación, teléfono, correo y ciudad</td></tr>
+        <tr><td>🔗 Social Links</td><td>Tus ligas de WhatsApp, Instagram, LinkedIn y Facebook</td></tr>
+        <tr><td>📊 Highlights</td><td>Las cuatro cifras grandes de la franja dorada</td></tr>
+        <tr><td>⭐ Expertise</td><td>Tus áreas de especialidad</td></tr>
+        <tr><td>💼 Career</td><td>Tus empleos</td></tr>
+        <tr><td>🎯 Skills &amp; Languages</td><td>Habilidades e idiomas</td></tr>
+        <tr><td>🎓 Education</td><td>Estudios</td></tr>
+        <tr><td>🏅 Certificates &amp; Courses</td><td>Certificados y cursos</td></tr>
+        <tr><td>📄 Formal CV</td><td>El CV de una hoja y su descarga en PDF</td></tr>
+        <tr><td>💳 Payments</td><td>Ligas de pago (Mercado Pago, PayPal)</td></tr>
+        <tr><td>🚀 Profile Link</td><td>Un botón destacado hacia otro perfil o sitio</td></tr>
+        <tr><td>✉️ Closing Section</td><td>El mensaje final de la página</td></tr>
+        <tr><td>👁 Show / Hide Sections</td><td>Mostrar u ocultar partes de la página</td></tr>
+        <tr><td>🖼 Flyer</td><td>Hacer tu volante</td></tr>
+        <tr><td>📤 Share a Post</td><td>Compartir una foto con texto a tus redes</td></tr>
+        <tr><td>🔐 Account</td><td>Cambiar tu contraseña y cerrar sesión (<strong>Sign out</strong>)</td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section id="es-10">
+    <div class="num">10</div><h2>Si algo no sale</h2>
+    <dl class="faq">
+      <dt>Cambié algo y mi página sigue igual.</dt>
+      <dd>Casi siempre es porque faltó tocar <span class="b gold">Save &amp; Publish</span>. Vuelve a entrar, haz el cambio y publícalo. Si ya lo publicaste, cierra la página y ábrela otra vez.</dd>
+      <dt>Dice "Wrong email or password".</dt>
+      <dd>El correo o la contraseña no coinciden. Después de 5 intentos fallidos hay que esperar 15 minutos.</dd>
+      <dt>Dice "Your session has expired".</dt>
+      <dd>Se venció tu sesión. Vuelve a entrar con tu contraseña; tus cambios siguen ahí. Después toca <span class="b gold">Save &amp; Publish</span>.</dd>
+      <dt>Dice "Couldn't reach the server".</dt>
+      <dd>No hay internet en ese momento. Revisa tu conexión e inténtalo de nuevo.</dd>
+      <dt>Borré algo sin querer.</dt>
+      <dd>Si todavía no tocas <span class="b gold">Save &amp; Publish</span>, cierra el panel con la <span class="b">✕</span> y acepta descartar: todo vuelve a como estaba publicado.</dd>
+    </dl>
+  </section>
+</main>
+
+<!-- ═══════════════ ENGLISH ═══════════════ -->
+<main data-l="en" lang="en">
+  <div class="kicker">Quick guide</div>
+  <h1>How to use <em>your panel</em></h1>
+  <p class="lead">Your page has a hidden panel where you change your own texts, photo, jobs and certificates, and where you make a flyer to send. This guide walks you through it.</p>
+
+  <div class="rule">
+    <div class="rule-t">The most important rule</div>
+    Nothing changes on your page until you tap <span class="b gold">Save &amp; Publish</span>. If you close the panel without tapping it, <strong>your changes are lost</strong>.
+  </div>
+
+  <ul class="toc">
+    <li><a href="#en-1"><span>1</span> Open the panel</a></li>
+    <li><a href="#en-2"><span>2</span> Sign in (first time and after)</a></li>
+    <li><a href="#en-3"><span>3</span> Change something and publish it</a></li>
+    <li><a href="#en-4"><span>4</span> Change your photo</a></li>
+    <li><a href="#en-5"><span>5</span> Add a job, certificate or course</a></li>
+    <li><a href="#en-6"><span>6</span> Make your flyer</a></li>
+    <li><a href="#en-7"><span>7</span> Share a post</a></li>
+    <li><a href="#en-8"><span>8</span> Download your CV as a PDF</a></li>
+    <li><a href="#en-9"><span>9</span> All the sections</a></li>
+    <li><a href="#en-10"><span>10</span> If something goes wrong</a></li>
+  </ul>
+
+  <section id="en-1">
+    <div class="num">01</div><h2>Open the panel</h2>
+    <ol class="steps">
+      <li>Open your page.</li>
+      <li>Scroll to the very bottom, where your name appears in small letters.</li>
+      <li>Tap your name <strong>5 times in a row</strong>, quickly.</li>
+      <li>The <span class="b">Sign in</span> screen opens.</li>
+    </ol>
+    <div class="tip"><strong>Shortcut:</strong> add <strong>#admin</strong> to the end of your page address and the panel opens directly. You can bookmark that address.</div>
+  </section>
+
+  <section id="en-2">
+    <div class="num">02</div><h2>Sign in</h2>
+    <p><strong style="color:var(--cream)">The first time</strong> (or if you forgot your password):</p>
+    <ol class="steps">
+      <li>Tap the underlined text <span class="b">First time here, or forgot your password? Use an activation code</span>.</li>
+      <li>In <span class="b">Email</span>, type your registered email.</li>
+      <li>In <span class="b">Activation code</span>, type the code Datable gave you. Each code works only once.</li>
+      <li>In <span class="b">New password</span>, choose a password of 8 characters or more, and type it again in <span class="b">Repeat new password</span>.</li>
+      <li>Tap <span class="b gold">Create password &amp; sign in</span>.</li>
+    </ol>
+    <p><strong style="color:var(--cream)">After that:</strong> type your email and password and tap <span class="b gold">Sign in</span>. On your own phone you usually stay signed in.</p>
+    <div class="tip">If you forget your password, ask Datable for a new activation code.</div>
+  </section>
+
+  <section id="en-3">
+    <div class="num">03</div><h2>Change something and publish it</h2>
+    <ol class="steps">
+      <li>Tap the section you want to change, for example <span class="b">Header &amp; Contact</span>. It opens.</li>
+      <li>Type over the text you want to change.</li>
+      <li>To see how it looks, tap <span class="b">👁 Preview</span>. To go back, tap <span class="b">Back to editing</span>.</li>
+      <li>Tap <span class="b gold">Save &amp; Publish</span>.</li>
+      <li>Wait for the green notice <span class="b">Published ✓</span>. Done: everyone can see it now.</li>
+    </ol>
+    <div class="tip">While there are changes that are not published, the top of the panel says <strong>● Unpublished changes</strong>. When everything is live it says <strong>✓ Everything is published</strong>.</div>
+  </section>
+
+  <section id="en-4">
+    <div class="num">04</div><h2>Change your photo</h2>
+    <ol class="steps">
+      <li>Open the <span class="b">📷 Photo</span> section.</li>
+      <li>Tap <span class="b gold">Choose a new photo</span> and pick the photo on your phone.</li>
+      <li>Wait until it says <span class="b">New photo ready</span>.</li>
+      <li>Tap <span class="b gold">Save &amp; Publish</span>. <strong>Without this step the photo is not published.</strong></li>
+    </ol>
+    <p>Use a vertical photo. On the page, the photo appears on computers and large screens; on phones the page shows the text only. The photo also appears on your flyer.</p>
+  </section>
+
+  <section id="en-5">
+    <div class="num">05</div><h2>Add a job, certificate or course</h2>
+    <ol class="steps">
+      <li>For a job, open <span class="b">💼 Career</span> and tap <span class="b">＋ Add position</span>.</li>
+      <li>For a certificate or course, open <span class="b">🏅 Certificates &amp; Courses</span> and tap <span class="b">＋ Add certificate or course</span>.</li>
+      <li>Fill in the fields: company or name, role, year and description.</li>
+      <li>Tap <span class="b gold">Save &amp; Publish</span>.</li>
+    </ol>
+    <p>Each entry has three buttons: <span class="b">↑</span> and <span class="b">↓</span> change the order, and <span class="b">✕</span> deletes it (it asks you to confirm).</p>
+  </section>
+
+  <section id="en-6">
+    <div class="num">06</div><h2>Make your flyer</h2>
+    <p>The panel builds a one-page image for you with your photo, name, title, numbers, contact details and a QR code that opens your page. You don't need to retype anything or take screenshots.</p>
+    <ol class="steps">
+      <li>Open the <span class="b">🖼 Flyer</span> section.</li>
+      <li>Under <span class="b">Size</span>, choose <strong>Story</strong> for WhatsApp status and Instagram stories, <strong>Post</strong> for a square post, or <strong>Print</strong> for a letter-size page.</li>
+      <li>Under <span class="b">Language of the flyer</span>, choose <strong>English</strong> or <strong>Español</strong>.</li>
+      <li>Under <span class="b">What to show</span>, tick or untick what you want on it.</li>
+      <li>If your face is cut off, move the <span class="b">Photo framing</span> slider.</li>
+      <li>Tap <span class="b gold">⬇ Download image</span> to save it on your phone, or <span class="b">📤 Share…</span> to send it straight to WhatsApp, Facebook or Instagram.</li>
+    </ol>
+    <div class="tip">Under <strong>Texts on the flyer</strong> you can shorten the texts or write them in Spanish just for that flyer. Your page does not change, and there is no need to tap Save &amp; Publish here.</div>
+  </section>
+
+  <section id="en-7">
+    <div class="num">07</div><h2>Share a post</h2>
+    <ol class="steps">
+      <li>Open <span class="b">📤 Share a Post</span>.</li>
+      <li>Tap <span class="b">Choose a photo</span>.</li>
+      <li>Write the text of your post.</li>
+      <li>Tap <span class="b gold">Share…</span> and choose Facebook, Instagram or WhatsApp in your phone's menu.</li>
+    </ol>
+    <p>Your text is copied automatically. If the app doesn't show it, press and hold, then choose "paste".</p>
+  </section>
+
+  <section id="en-8">
+    <div class="num">08</div><h2>Download your CV as a PDF</h2>
+    <ol class="steps">
+      <li>Open <span class="b">📄 Formal CV</span> and scroll to the end of the section.</li>
+      <li>Tap <span class="b">⬇ Download CV as PDF</span>.</li>
+      <li>In the print window, choose "Save as PDF".</li>
+    </ol>
+    <p>Any visitor can also download it from your page with the <span class="b">Download PDF</span> button.</p>
+  </section>
+
+  <section id="en-9">
+    <div class="num">09</div><h2>All the sections</h2>
+    <div class="tw"><table>
+      <thead><tr><th>Section</th><th>What it is for</th></tr></thead>
+      <tbody>
+        <tr><td>📷 Photo</td><td>Change your photo</td></tr>
+        <tr><td>🪪 Header &amp; Contact</td><td>Name, title, introduction, phone, email and city</td></tr>
+        <tr><td>🔗 Social Links</td><td>Your WhatsApp, Instagram, LinkedIn and Facebook links</td></tr>
+        <tr><td>📊 Highlights</td><td>The four big numbers in the gold bar</td></tr>
+        <tr><td>⭐ Expertise</td><td>Your areas of expertise</td></tr>
+        <tr><td>💼 Career</td><td>Your jobs</td></tr>
+        <tr><td>🎯 Skills &amp; Languages</td><td>Skills and languages</td></tr>
+        <tr><td>🎓 Education</td><td>Your studies</td></tr>
+        <tr><td>🏅 Certificates &amp; Courses</td><td>Certificates and courses</td></tr>
+        <tr><td>📄 Formal CV</td><td>The one-page CV and its PDF download</td></tr>
+        <tr><td>💳 Payments</td><td>Payment links (Mercado Pago, PayPal)</td></tr>
+        <tr><td>🚀 Profile Link</td><td>A highlighted button to another profile or site</td></tr>
+        <tr><td>✉️ Closing Section</td><td>The final message of the page</td></tr>
+        <tr><td>👁 Show / Hide Sections</td><td>Show or hide parts of the page</td></tr>
+        <tr><td>🖼 Flyer</td><td>Make your flyer</td></tr>
+        <tr><td>📤 Share a Post</td><td>Share a photo with text to your networks</td></tr>
+        <tr><td>🔐 Account</td><td>Change your password and <strong>Sign out</strong></td></tr>
+      </tbody>
+    </table></div>
+  </section>
+
+  <section id="en-10">
+    <div class="num">10</div><h2>If something goes wrong</h2>
+    <dl class="faq">
+      <dt>I changed something and my page looks the same.</dt>
+      <dd>Almost always, <span class="b gold">Save &amp; Publish</span> was not tapped. Go back in, make the change and publish it. If you did publish, close the page and open it again.</dd>
+      <dt>It says "Wrong email or password".</dt>
+      <dd>The email or password doesn't match. After 5 wrong tries you have to wait 15 minutes.</dd>
+      <dt>It says "Your session has expired".</dt>
+      <dd>Sign in again with your password; your changes are still there. Then tap <span class="b gold">Save &amp; Publish</span>.</dd>
+      <dt>It says "Couldn't reach the server".</dt>
+      <dd>There is no internet at that moment. Check your connection and try again.</dd>
+      <dt>I deleted something by mistake.</dt>
+      <dd>If you haven't tapped <span class="b gold">Save &amp; Publish</span> yet, close the panel with the <span class="b">✕</span> and accept discarding: everything goes back to what was published.</dd>
+    </dl>
+  </section>
+</main>
+
+<footer>
+  <span data-l="es">Guía del panel · Jesús P. Zárate</span>
+  <span data-l="en">Panel guide · Jesús P. Zárate</span>
+  <a href="./" data-l="es">← Volver a mi página</a>
+  <a href="./" data-l="en">← Back to my page</a>
+</footer>
+
+<script>
+(function(){
+  var root = document.documentElement;
+  var btns = document.querySelectorAll(".lang button");
+  function mark(){ for (var i = 0; i < btns.length; i++) btns[i].setAttribute("aria-pressed", btns[i].getAttribute("data-set") === root.getAttribute("data-lang") ? "true" : "false"); }
+  for (var i = 0; i < btns.length; i++) btns[i].addEventListener("click", function(){
+    var l = this.getAttribute("data-set");
+    root.setAttribute("data-lang", l); root.setAttribute("lang", l);
+    try { localStorage.setItem("zarate_manual_lang", l); } catch(e){}
+    mark();
+  });
+  mark();
+})();
+</script>
+</body>
+</html>
